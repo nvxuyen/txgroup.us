@@ -1,6 +1,8 @@
 @extends('admin.master')
 @section('content')
-
+<?php
+	use App\Collection; 
+?>
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -69,6 +71,36 @@
 									<div class="space-4"></div>
 
 									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Chọn danh mục cha </label>
+
+										<div class="col-sm-9">
+											<select name="parent" id="parent">
+												<option value="0">---Không chọn---</option>
+												@foreach($col as $c)
+												<option value="{{$c->id}}" @if(isset($id)) @if($id == $c->id) selected @endif @endif>{{$c->position}} - {{$c->name}}</option>
+												@php 
+													$col_parent1 = Collection::where('parent', $c->id)->orderBy('position','ASC')->get();
+												@endphp
+												@if(count($col_parent1) > 0)
+													@foreach($col_parent1 as $col1)
+														<option value="{{$col1->id}}" @if(isset($id)) @if($id == $col1->id) selected @endif @endif>---{{$col1->position}} - {{$col1->name}}</option>
+														@php 
+															$col_parent2 = Collection::where('parent', $col1->id)->orderBy('position','ASC')->get();
+														@endphp 
+														@if(count($col_parent2) > 0)
+															@foreach($col_parent2 as $col2)
+																<option value="{{$col2->id}}" disabled="disabled">------{{$col2->position}} - {{$col2->name}}</option>
+															@endforeach
+														@endif
+													@endforeach
+												@endif
+												@endforeach
+											</select>
+										</div>
+									</div>
+									<div class="space-4"></div>
+
+									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mô tả </label>
 
 										<div class="col-sm-9">
@@ -77,6 +109,14 @@
 									</div>
 
 									<div class="space-4"></div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Thứ tự hiển thị </label>
+
+										<div class="col-sm-9">
+											<input type="text" style="width: 3%;" name="position" value="{{isset($order_num) ? $order_num : ''}}" class="col-xs-10 col-sm-5" />
+										</div>
+									</div>
 
 									<div class="clearfix form-actions">
 										<div class="col-md-offset-3 col-md-9">

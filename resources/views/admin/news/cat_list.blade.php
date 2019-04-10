@@ -68,7 +68,7 @@
 													<tr>
 														<th width="3%">ID</th>
 														<th width="75%">Tiêu đề</th>
-														<th width="10%"></th>
+														<th width="10%">Thao tác</th>
 													</tr>
 												</thead>
 
@@ -83,7 +83,7 @@
 														</td>
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
-																<input type="submit" name="submit" value="Thêm >>">
+																<input type="submit" name="submit" class="btn btn-info" value="Thêm">
 															</div>
 														</td>
 													</tr>

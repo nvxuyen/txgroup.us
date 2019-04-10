@@ -1,5 +1,8 @@
 @extends('admin.master')
 @section('content')
+<?php
+	use App\Collection; 
+?>
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -10,9 +13,9 @@
 							</li>
 
 							<li>
-								<a href="#">Quản lý tin</a>
+								<a href="#">Quản lý danh mục</a>
 							</li>
-							<li class="active">Sửa bài viết</li>
+							<li class="active">Sửa danh mục</li>
 						</ul><!-- /.breadcrumb -->
 
 						<div class="nav-search" id="nav-search">
@@ -30,7 +33,7 @@
 
 						<div class="page-header">
 							<h1>
-								Sửa bài viết
+								Sửa danh mục
 
 							</h1>
 						</div><!-- /.page-header -->
@@ -54,76 +57,77 @@
 								    <strong>Success!</strong> {{session('thongbao')}}.
 								  </div>
 							  @endif
+
 								<!-- PAGE CONTENT BEGINS -->
-								<form class="form-horizontal" role="form" action="{{route('admin')}}/news/edit/{{$edit->id}}" method="POST">
-								<input type="hidden" name="_token" value="{{csrf_token()}}">
+								<form class="form-horizontal" role="form" action="{{route('collection.edit',['id'=>$data->id])}}" method="POST">
+									<input type="hidden" name="_token" value="{{csrf_token()}}">
 									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tiêu đề </label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tên chuyên mục </label>
 
 										<div class="col-sm-9">
-											<input type="text" id="title" name="title" value="{{$edit->title}}" class="col-xs-10 col-sm-5" />
+											<input type="text" name="name" value="{{$data->name}}" class="col-xs-10 col-sm-5" />
 										</div>
 									</div>
-
+									<div class="space-4"></div>
 									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Chuyên mục </label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Chọn danh mục cha </label>
 
 										<div class="col-sm-9">
-											<select style="width:15%;" class="chosen-select form-control" id="cat_news" name="cat_news">
-												@foreach($cat as $c)
-												<option value="{{$c->id}}" @if(($edit->cat_id) == ($c->id)) selected="selected" @endif>{{$c->name}}</option>
+											<select name="parent" id="parent">
+												<option value="0" @if($data->parent == 0) selected @endif>---Không chọn---</option>
+												@foreach($col as $c)
+												<option value="{{$c->id}}" @if($data->parent == $c->id) selected @endif>{{$c->position}} - {{$c->name}}</option>
+												@php 
+													$col_parent1 = Collection::where('parent', $c->id)->orderBy('position','ASC')->get();
+												@endphp
+												@if(count($col_parent1) > 0)
+													@foreach($col_parent1 as $col1)
+														<option value="{{$col1->id}}" @if($data->parent == $col1->id) selected @endif>---{{$col1->position}} - {{$col1->name}}</option>
+														@php 
+															$col_parent2 = Collection::where('parent', $col1->id)->orderBy('position','ASC')->get();
+														@endphp 
+														@if(count($col_parent2) > 0)
+															@foreach($col_parent2 as $col2)
+																<option value="{{$col2->id}}" disabled="disabled">------{{$col2->position}} - {{$col2->name}}</option>
+															@endforeach
+														@endif
+													@endforeach
+												@endif
 												@endforeach
 											</select>
 										</div>
 									</div>
-
 									<div class="space-4"></div>
 
 									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tóm tắt </label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mô tả </label>
 
 										<div class="col-sm-9">
-											<textarea name="quote" id="quote" cols="10" rows="10" style="margin: 0px; width: 835px; height: 83px;">{{$edit->quote}}</textarea>
+											<textarea name="des" id="des" cols="10" rows="10" style="margin: 0px; width: 835px; height: 83px;">{{$data->des}}</textarea>
 										</div>
 									</div>
 
 									<div class="space-4"></div>
 
 									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> URL Ảnh đại diện </label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Thứ tự hiển thị </label>
 
 										<div class="col-sm-9">
-											<input type="text" name="image" value="{{$edit->image}}" class="col-xs-10 col-sm-5" />
+											<input type="text" style="width: 3%;" name="position" value="{{$data->position}}" class="col-xs-10 col-sm-5" />
 										</div>
 									</div>
-
-									<div class="space-4"></div>
-
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Nội dung </label>
-										<div class="col-sm-9">
-								            <textarea name="content" id="content" rows="10" cols="80">{{$edit->content}}</textarea>
-								            <script>
-								                // Replace the <textarea id="editor1"> with a CKEditor
-								                // instance, using default configuration.
-								                CKEDITOR.replace( 'content' );
-								            </script>
-										</div>
-									</div>
-
-									<div class="space-4"></div>
 
 									<div class="clearfix form-actions">
 										<div class="col-md-offset-3 col-md-9">
 											<button class="btn btn-info" type="submit">
 												<i class="ace-icon fa fa-check bigger-110"></i>
-												Submit
+												Lưu lại
 											</button>
 
 											&nbsp; &nbsp; &nbsp;
 											<button class="btn" type="reset">
 												<i class="ace-icon fa fa-undo bigger-110"></i>
-												Reset
+												Làm mới
 											</button>
 										</div>
 									</div>
@@ -134,6 +138,7 @@
 			</div><!-- /.main-content -->
 
 @endsection
+
 @section('script-head')
 <script src="public/assets_admin/js/ckeditor/ckeditor.js" type="text/javascript"></script>
 @endsection

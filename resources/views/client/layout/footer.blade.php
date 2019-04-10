@@ -25,11 +25,28 @@
 											<div class="footer-static-content">
 												<div class="contact-add">
 													
-													<p><i class="fa fa-map-marker"></i><span>Địa chỉ: 180 Đường Cao Lỗ, Phường 4, Quận 8, Hồ Chí Minh</br>Bảo hành : 180 Đường Cao Lỗ, Phường 4, Quận 8, Hồ Chí Minh</span></p>
+													<p><i class="fa fa-map-marker"></i><span>{{$set->address}}</span></p>
 																			
-													<p><i class="fa fa-envelope-o"></i><span>txgroup@gmail.com (CSKH) - txgroup@gmail.com (Kinh Doanh) - txgroup@gmail.com (Liên hệ) </span></p>
+													<p><i class="fa fa-envelope-o"></i><span>{{$set->email}} (CSKH) - {{$set->email}} (Kinh Doanh) - {{$set->email}} (Liên hệ) </span></p>
 													
 												</div>
+											</div>
+										</div>
+
+										<div class="col-md-4 col-sm-4 col-sms-12">
+											<div class="footer-static-title">
+												<h4>Fanpage chúng tôi</h4>
+											</div>
+											<div class="footer-static-content">
+												<!-- Facebook widget -->
+
+												<div class="footer-static-content"> 
+												<div class="fb-page" data-href="{{$set->fanpage}}"  data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">	</div>
+												</div>
+												<div style="clear:both;" >
+													
+												</div>
+	
 											</div>
 										</div>
 										
@@ -39,8 +56,8 @@
 							</div>
 							<div class="footer-bottom">
 								<div class="container copyright">						
-									<p>© 2019 - Bản quyền của cửa hàng VI TÍNH TXGROUP - <a href="{{asset('')}}" target="_blank">TXGroup.Us</a>.</p> 
-									Địa chỉ: 180 Cao Lỗ, Quận 8, TP.HCM, Việt Nam</p>
+									<p>{!!$set->copyright!!}</p> 
+									{{$set->address}}</p>
 
 								</div>
 							</div>

@@ -18,7 +18,7 @@
                     <h2>Phục hồi mật khẩu</h2>
                 </div>
                 <form action="{{route('forgot')}}" method="POST" id="signup-form" class="signup-form">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                {{ csrf_field() }}
 
                 @if(count($errors) > 0)
                 @foreach($errors->all() as $err)

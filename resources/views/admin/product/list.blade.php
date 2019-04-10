@@ -1,5 +1,8 @@
 @extends('admin.master')
 @section('content')
+@php
+	use App\ImgProduct;
+@endphp
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -14,7 +17,6 @@
 							</li>
 							<li class="active">Danh sách sản phẩm</li>
 						</ul><!-- /.breadcrumb -->
-
 						<div class="nav-search" id="nav-search">
 							<form class="form-search">
 								<span class="input-icon">
@@ -36,7 +38,11 @@
 									Danh sách sản phẩm
 								</small>
 							</h1>
+
+							<div style="height:10px;"></div>
+							<input type="button" class="btn btn-info" value="Thêm sản phẩm" onclick="location.href='{{route('product.add')}}'">
 						</div><!-- /.page-header -->
+
 						@if(count($errors) > 0)
 						@foreach($errors->all() as $err)
 							<div class="alert alert-warning">
@@ -66,24 +72,35 @@
 													<tr>
 														<th width="3%">ID</th>
 														<th with= "30%">Hình ảnh</th>
-														<th width="30%">Tên sản phẩm</th>
-														<th width="30%">Giá</th>
-														<th width="12%">Thời gian cập nhật</th>
+														<th width="25%">Tên sản phẩm</th>
+														<th width="5%">Tồn Kho</th>
+														<th width="8%">Giá nhập</th>
+														<th width="8%">Giá bán</th>
+														<th width="5%">Khuyến mãi</th>
+														<th width="5%">Nổi bật</th>
+														<th width="8%">Thời gian cập nhật</th>
 														<th width="5%">Action</th>
 													</tr>
 												</thead>
 
 												<tbody>
 													@foreach($product as $all)
+														@php
+															$img = ImgProduct::where('product_id', $all->id)->first();
+														@endphp	
 													<tr>
 														<td>{{$all->id}}</td>
-														<td><img src="{{$all->image}}" width="30%" /></td>
+														<td><img src="{{asset('storage/app/'.$img->images)}}" width="40%" /></td>
 														<td>
 															<a href="{{route('blogs')}}/readmore/{{$all->id}}/{{$all->title_ascii}}.html" target="_blank">{{$all->name}}</a>
 														</td>
+														<td>@if($all->inventory == 0) <b><font color="red">Hết hàng</font></b> @else {!!$all->inventory!!} @endif</td>
+														<td>{{number_format($all->price_import)}} VNĐ</td>
 														<td>
 															{{number_format($all->price)}} VNĐ
 														</td>
+														<td>{{ $all->promotion }}</td>
+														<td>{{ $all->highlights }}</td>
 														<td>
 															{{$all->updated_at}}
 														</td>

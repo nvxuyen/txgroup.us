@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
-        <title>Dashboard - Ace Admin</title>
+        <title>Administration - Hệ thống quản trị nội dung</title>
         <base href="{{asset('')}}">
         <meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -41,6 +41,7 @@
         <script src="public/assets_admin/js/html5shiv.min.js"></script>
         <script src="public/assets_admin/js/respond.min.js"></script>
         <![endif]-->
+        <script src="public/assets_admin/js/jquery.1.12.4.min.js"></script>
     </head>
 
     <body class="no-skin">

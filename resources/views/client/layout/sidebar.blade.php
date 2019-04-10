@@ -11,10 +11,10 @@
 			<p>
 				<span class="supp-name">Kinh Doanh:</span>
 				<br>
-				<span class="phone">txgroup@gmail.com</span>
+				<span class="phone">{{$set->gmail}}</span>
 			</p>
 			
-			<a href="skype:lytavn?chat" class="skype">
+			<a href="skype:{{$set->skype}}?chat" class="skype">
 				<img src="{{asset('public')}}/assets/images/skype-icon.png" class="img-responsive"/>
 			</a>
 			
@@ -27,7 +27,7 @@
 			
 			<br>
 			<p>
-				<b>• Tổng Đài:</b> 0868899000</br> <b>• Kinh Doanh:</b> 0868899000 </br><b>• Kỹ Thuật:</b> 0868899000</br><b>• Bảo Hành:</b> 0868899000 </br>
+				<b>• Tổng Đài:</b> {{$set->hotline1}}</br> <b>• Kinh Doanh:</b> {{$set->hotline2}} </br><b>• Kỹ Thuật:</b> {{$set->hotline3}}</br><b>• Bảo Hành:</b> {{$set->hotline4}} </br>
 			</p>
 			
 		</div>

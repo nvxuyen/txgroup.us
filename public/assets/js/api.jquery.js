@@ -175,17 +175,6 @@ Haravan.addItemFromForm = function(form_id, callback) {
     jQuery.ajax(params);
 };
 
-Haravan.getCart = function(callback) {
-  jQuery.getJSON('/cart.js', function (cart, textStatus) {
-    if ((typeof callback) === 'function') {
-      callback(cart);
-    }
-    else {
-      Haravan.onCartUpdate(cart);
-    }
-  });
-};
-
 Haravan.getCartShippingRatesForDestination = function(shipping_address, callback) {
   var params = {
     type: 'GET',

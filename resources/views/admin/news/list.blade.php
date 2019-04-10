@@ -36,6 +36,9 @@
 									Danh sách tin
 								</small>
 							</h1>
+							<div style="height:10px;"></div>
+							<input type="button" class="btn btn-info" value="Thêm" onclick="location.href='{{route('news.add')}}'">
+							<button class="btn" id="RemoveChoise" name="RemoveChoise"><i class="ace-icon fa fa-trash-o"></i>Xóa chọn</button>
 						</div><!-- /.page-header -->
 						@if(count($errors) > 0)
 						@foreach($errors->all() as $err)
@@ -65,9 +68,11 @@
 												<thead>
 													<tr>
 														<th width="3%">ID</th>
-														<th width="80%">Tiêu đề</th>
+														<th width="45%">Tiêu đề</th>
+														<th width="35%">Hình ảnh</th>
 														<th width="12%">Thời gian đăng</th>
-														<th width="5%"></th>
+														<th width="8%">Thao tác</th>
+														<th width="5%"><input type="checkbox" name="Check" id="Check" onClick="toggle(this)"></th>
 													</tr>
 												</thead>
 
@@ -77,8 +82,9 @@
 														<td>{{$all->id}}</td>
 
 														<td>
-															<a href="{{route('blogs')}}/readmore/{{$all->id}}/{{$all->title_ascii}}.html" target="_blank">{{$all->title}}</a>
+															<a href="{{route('blogs')}}/readmore/{{$all->id}}/{{$all->title_ascii}}.html" target="_blank"><b>{{$all->title}}</b></a>
 														</td>
+														<td><img src="{{$all->image}}" width="30%" /></td>
 														<td>
 															{{$all->create_at}}
 														</td>
@@ -94,6 +100,7 @@
 																</a>
 															</div>
 														</td>
+														<td><input type="checkbox" name="choise" id="choise" value="{{$all->id}}"></td>
 													</tr>
 													@endforeach
 
@@ -115,18 +122,35 @@
 @endsection
 
 @section('script-1')
-    <script src="public/assets_admin/js/bootbox.js"></script>
-    <script>
-		$(document).on("click", "[data-toggle=\"confirm\"]", function (e) {
-		    e.preventDefault();
-		    var lHref = $(this).attr('href');
-		    var lText = this.attributes.getNamedItem("data-title") ? this.attributes.getNamedItem("data-title").value : "Bạn có chắc chắn muốn xóa?"; // If data-title is not set use default text
-		    bootbox.confirm(lText, function (confirmed) {
-		        if (confirmed) {
-		            //window.location.replace(lHref); // similar behavior as an HTTP redirect (DOESN'T increment browser history)
-		            window.location.href = lHref; // similar behavior as clicking on a link (Increments browser history)
-		        }
-		    });
-		});
-    </script>
+<script src="public/assets_admin/js/bootbox.js"></script>
+<script>
+	$(document).on("click", "[data-toggle=\"confirm\"]", function (e) {
+	    e.preventDefault();
+	    var lHref = $(this).attr('href');
+	    var lText = this.attributes.getNamedItem("data-title") ? this.attributes.getNamedItem("data-title").value : "Bạn có chắc chắn muốn xóa?"; // If data-title is not set use default text
+	    bootbox.confirm(lText, function (confirmed) {
+	        if (confirmed) {
+	            //window.location.replace(lHref); // similar behavior as an HTTP redirect (DOESN'T increment browser history)
+	            window.location.href = lHref; // similar behavior as clicking on a link (Increments browser history)
+	        }
+	    });
+	});
+
+	function toggle(source) {
+	  checkboxes = document.getElementsByName('choise');
+	  for(var i=0, n=checkboxes.length;i<n;i++) {
+	    checkboxes[i].checked = source.checked;
+	  }
+	}
+	$("#RemoveChoise").click(function(){
+		var listid="";
+		$("input[name='choise']").each(function(){
+			if (this.checked) listid = listid+","+this.value;
+			})
+		listid=listid.substr(1);	 //alert(listid);
+		if (listid=="") { alert("Bạn chưa chọn mục nào"); return false;}
+		quest= confirm("Bạn có chắc chắn muốn xóa?");
+		if (quest==true) document.location = "{{route('news.delete')}}?listid=" + listid;
+	});
+</script>
 @endsection

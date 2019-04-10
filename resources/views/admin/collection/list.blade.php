@@ -1,5 +1,8 @@
 @extends('admin.master')
 @section('content')
+<?php
+	use App\Collection;
+?>
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -60,68 +63,101 @@
 										<!-- div.table-responsive -->
 
 										<!-- div.dataTables_borderWrap -->
-<div class="col-sm-6">
-										<div class="widget-box widget-color-green2">
-											<div class="widget-header">
-												<h4 class="widget-title lighter smaller">
-													Danh mục sản phẩm
-												</h4>
-											</div>
+<table cellpadding="4" cellspacing="0" border="0" align="center" width="90%" style="border-collapse:separate" class="table table-striped table-bordered table-hover" id="cpform_table">
+<tbody>
+<tr>
+	<th align="center" colspan="4">
+			<b>Quản lý danh mục sản phẩm</b>
+	</th>
+</tr>
+<tr valign="top">
+	<td class="alt1" colspan="4">Nếu bạn thay đổi thứ tự hiển thị, vui lòng thay đổi bằng nút 'Lưu thứ tự hiển thị' ở cuối trang</td>
+</tr>
+@foreach($col_parent0 as $col0)
+<tr valign="top" align="center">
+	<td class="thead" align="left">Tên chuyên mục</td>
+	<td class="thead">Điều khiển</td>
+	<td class="thead">Thứ tự hiển thị</td>
+</tr>
 
-<div class="widget-body">
-    <div class="widget-main padding-8">
-        <ul id="tree2" class="tree tree-unselectable tree-folder-select" role="tree">
-            <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
-                <i class="icon-caret ace-icon tree-plus"></i>&nbsp;				
-                <div class="tree-branch-header">					
-                	<span class="tree-branch-name">						
-                		<i class="icon-folder ace-icon fa fa-folder"></i>						
-                		<span class="tree-label"></span>					
-                	</span>				
-                </div>
-                <ul class="tree-branch-children" role="group"></ul>
-                <div class="tree-loader hidden" role="alert">
-                    <div class="tree-loading"><i class="ace-icon fa fa-refresh fa-spin blue"></i></div>
-                </div>
-            </li>
-            <li class="tree-item hide" data-template="treeitem" role="treeitem">				
-            	<span class="tree-item-name">				  				  
-            		<span class="tree-label"></span>				
-            	</span>			
-            </li>
-            @foreach($collection as $col)
-            @if($col->parent == 0)
-            <li class="tree-branch tree-open" role="treeitem" aria-expanded="true">
-                <i class="icon-caret ace-icon tree-minus"></i>&nbsp;				
-                <div class="tree-branch-header">					
-                	<span class="tree-branch-name">						
-                	<i class="icon-folder red ace-icon fa fa-folder-open"></i>						
-                	<span class="tree-label">{{$col->name}}</span>					
-                </span>				
-            </div>
-            @if($col->parent != 0 && $col->id == $col->parent)
-            @foreach($collection as $col)
-                <ul class="tree-branch-children" role="group">
-                    <li class="tree-branch tree-open" role="treeitem" aria-expanded="true">
-                        <i class="icon-caret ace-icon tree-minus"></i>&nbsp;				
-                        <div class="tree-branch-header">					
-	                        <span class="tree-branch-name">						
-	                        	<i class="icon-folder pink ace-icon fa fa-folder-open"></i>						
-	                        	<span class="tree-label">{{$col->name}}</span>					
-	                        </span>				
-                    </div>
-                    </li>
-                </ul>
-            @endforeach
-            @endif
-            </li>
-            @endif
-            @endforeach
-        </ul>
-    </div>
-</div>
-										</div>
-									</div>
+<tr valign="top" align="center">
+	<td class="alt2" align="left"><a name="forum1">&nbsp;</a> <b><a href="forum.php?do=edit&amp;f=1">{{$col0->name}}</a> </b></td>
+	<td class="alt2">
+	<form role="form" action="{{route('collection.control')}}" method="GET">
+		<select name="f1" class="bginput" style="width:30%">
+			<option value="edit">Sửa chuyên mục</option>
+			<option value="view">Xem chuyên mục</option>
+			<option value="remove">Xóa chuyên mục</option>
+			<option value="add">Thêm chuyên mục con</option>
+		</select>
+				<input type="hidden" name="colid" value="{{$col0->id}}">
+		<input type="submit" class="button" value="Đến">
+	</form>
+	</td>
+	<td class="alt2">
+		<input type="text" class="bginput" name="order[1]" value="{{$col0->position}}" tabindex="1" size="3" title="Thay đổi thứ tự hiển thị">
+	</td>
+</tr>
+@php 
+	$col_parent1 = Collection::where('parent','=',$col0->id)->orderBy('position', 'ASC')->get();
+@endphp 
+@if(count($col_parent1)>0)
+	@foreach($col_parent1 as $col1)
+		<tr valign="top" align="center">
+			<td class="alt2" align="left"><a name="forum1">&nbsp;</a> <b><a href="forum.php?do=edit&amp;f=1">---{{$col1->name}}</a> </b></td>
+			<td class="alt2">
+			<form role="form" action="{{route('collection.control')}}" method="GET">
+				<select name="f1" class="bginput" style="width:30%">
+					<option value="edit">Sửa chuyên mục</option>
+					<option value="view">Xem chuyên mục</option>
+					<option value="remove">Xóa chuyên mục</option>
+					<option value="add">Thêm chuyên mục con</option>
+				</select>
+						<input type="hidden" name="colid" value="{{$col1->id}}">
+				<input type="submit" class="button" value="Đến">
+			</form>
+			</td>
+			<td class="alt2">
+				<input type="text" class="bginput" name="order[1]" value="{{$col1->position}}" tabindex="1" size="3" title="Thay đổi thứ tự hiển thị">
+			</td>
+		</tr>
+
+		@php 
+			$col_parent2 = Collection::where('parent','=', $col1->id)->orderBy('position', 'ASC')->get();
+		@endphp
+		@if(count($col_parent2)>0)
+		    @foreach($col_parent2 as $col2)
+				<tr valign="top" align="center">
+					<td class="alt2" align="left"><a name="forum1">&nbsp;</a> <b><a href="forum.php?do=edit&amp;f=1">------{{$col2->name}}</a> </b></td>
+					<td class="alt2">
+					<form role="form" action="{{route('collection.control')}}" method="GET">
+						<select name="f1" class="bginput" style="width:30%">
+							<option value="edit">Sửa chuyên mục</option>
+							<option value="view">Xem chuyên mục</option>
+							<option value="remove">Xóa chuyên mục</option>
+						</select>
+								<input type="hidden" name="colid" value="{{$col2->id}}">
+						<input type="submit" class="button" value="Đến">
+					</form>
+					</td>
+					<td class="alt2">
+						<input type="text" class="bginput" name="order[1]" value="{{$col2->position}}" tabindex="1" size="3" title="Thay đổi thứ tự hiển thị">
+					</td>
+				</tr>
+			@endforeach
+		@endif
+	@endforeach
+@endif
+
+@endforeach
+
+<tr>
+	<td class="tfoot" colspan="4" align="center">
+		<input type="submit" class="btn btn-info" tabindex="1" value="Lưu thứ tự hiển thị" accesskey="s"> 
+		<input type="button" class="btn btn-info" value="Thêm chuyên mục mới" title="" tabindex="1" onclick="window.location='{{route('collection.add')}}';"> 
+	</td>
+</tr>
+</tbody></table>
 									</div>
 								</div>
 

@@ -4,8 +4,8 @@
 									<!-- LOGO -->
 									
 									<h1>
-										<a href="{{asset('')}}">
-											<img src="{{asset('public/assets/images')}}/logo.png" alt="Tân Doanh" class="img-responsive"/>
+										<a href="{{asset('')}}" title="{{ $set->title }}">
+											<img src="{{asset('public/assets/images/logo.png')}}" alt="{{ $set->company_name }}" class="img-responsive"/>
 										</a>
 									</h1>
 									

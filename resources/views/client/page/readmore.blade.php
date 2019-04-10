@@ -15,9 +15,9 @@
 		<li><a href="/" target="_self">Trang chủ</a></li>
 		
 	
-		<li><a href="/blogs/chuong-trinh-khuyen-mai">Blog - Chương trình khuyến mãi</a></li>
+		<li><a href="{{ route('blogs.cat', ['name'=>$detail->cat_news->name_ascii]) }}">Blog - {{ $detail->cat_news->name }}</a></li>
 
-		<li class="active"><span>{{$read->title}}</span></li>
+		<li class="active"><span>{{$detail->title}}</span></li>
 		
 	</ol>
 </div>
@@ -25,7 +25,7 @@
 			<div class="article-body">
 				<div class="col-md-9 articles clearfix" id="layout-page">
 					<span class="header-page clearfix">
-						<h1>{{$read->title}}</h1>
+						<h1>{{$detail->title}}</h1>
 					</span>
 
 					<div class="content-page row">
@@ -36,7 +36,7 @@
 									<li> 
 										<i class="icon-time"></i>
 										<p>
-											{{date_format($read->created_at, "d/m/Y")}}
+											{{date_format($detail->created_at, "d/m/Y")}}
 											}
 										</p>
 									</li>
@@ -52,7 +52,7 @@
 						<div class="col-md-10 article-content">
 							
 							<div class="body-content">
-								{!!$read->content!!}
+								{!!$detail->content!!}
 							</div>
 
 						</div>

@@ -61,45 +61,16 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{isset($pro_add_act) ? 'active' : ''}}">
-                                <a href="{{route('product.add')}}">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Thêm sản phẩm
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-
                         </ul>
                     </li>
 
-                    <li class="{{isset($col2_act) ? 'active open' : ''}}">
-                        <a href="#" class="dropdown-toggle">
+                    <li class="{{isset($order_act) ? 'active' : ''}}">
+                        <a href="{{ route('order.list') }}">
                             <i class="menu-icon fa fa-shopping-cart"></i>
                             <span class="menu-text"> Quản lý đơn hàng </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
                         </a>
 
                         <b class="arrow"></b>
-
-                        <ul class="submenu">
-                            <li class="{{isset($col2_list_act) ? 'active' : ''}}">
-                                <a href="{{route('collection.list')}}">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Danh sách đơn hàng
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="{{isset($news_add_act) ? 'active' : ''}}">
-                                <a href="{{route('them-bai-viet')}}">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Bài viết mới
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-
-                        </ul>
                     </li>
 
                     <li class="{{isset($col22_act) ? 'active' : ''}}">
@@ -114,7 +85,7 @@
                     <li class="{{isset($news_act) ? 'active open' : ''}}">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-newspaper-o"></i>
-                            <span class="menu-text"> Quản lý tin </span>
+                            <span class="menu-text"> Bài viết </span>
 
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
@@ -125,15 +96,23 @@
                             <li class="{{isset($news_list_act) ? 'active' : ''}}">
                                 <a href="{{route('danh-sach-tin')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    Danh sách bài viết
+                                    Quản lý tin tức
                                 </a>
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{isset($news_add_act) ? 'active' : ''}}">
-                                <a href="{{route('them-bai-viet')}}">
+                            <li class="{{isset($news_1) ? 'active' : ''}}">
+                                <a href="{{route('edit.page',['id'=>'1'])}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    Bài viết mới
+                                    Quản lý bảo hành
+                                </a>
+                                <b class="arrow"></b>
+                            </li>
+
+                            <li class="{{isset($news_2) ? 'active' : ''}}">
+                                <a href="{{route('edit.page',['id'=>'2'])}}">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    Quản lý thanh toán
                                 </a>
                                 <b class="arrow"></b>
                             </li>
@@ -171,7 +150,7 @@
                         </ul>
                     </li>
 
-                    <li class="{{isset($settings_act) ? 'active open' : ''}}">
+                    <li class="{{isset($settings2_act) ? 'active open' : ''}}">
                         <a href="" class="dropdown-toggle">
                             <i class="menu-icon fa fa-line-chart"></i>
                             <span class="menu-text"> Thống kê </span>
@@ -181,16 +160,16 @@
 
                         <b class="arrow"></b>
                         <ul class="submenu">
-                            <li class="{{isset($settings_act) ? 'active' : ''}}">
-                                <a href="{{route('settings')}}">
+                            <li class="{{isset($settings2_act) ? 'active' : ''}}">
+                                <a href="{{route('adm.settings')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Cài đặt chung
                                 </a>
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{isset($settings_act) ? 'active' : ''}}">
-                                <a href="{{route('settings')}}">
+                            <li class="{{isset($set_slider2_act) ? 'active' : ''}}">
+                                <a href="{{route('adm.slider')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Cài đặt Slider
                                 </a>
@@ -210,16 +189,16 @@
 
                         <b class="arrow"></b>
                         <ul class="submenu">
-                            <li class="{{isset($settings_act) ? 'active' : ''}}">
-                                <a href="{{route('settings')}}">
+                            <li class="{{isset($set_settings_act) ? 'active' : ''}}">
+                                <a href="{{route('adm.settings')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Cài đặt chung
                                 </a>
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{isset($settings_act) ? 'active' : ''}}">
-                                <a href="{{route('settings')}}">
+                            <li class="{{isset($set_slider_act) ? 'active' : ''}}">
+                                <a href="{{route('adm.slider')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Cài đặt Slider
                                 </a>
